@@ -3,9 +3,7 @@ using EasyShop.Domain.Entities;
 using EasyShop.Domain.Enums;
 using EasyShop.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace EasyShop.Infrastructure.Repositories
 {
@@ -35,6 +33,16 @@ namespace EasyShop.Infrastructure.Repositories
                 .AsNoTracking()
                 .Include(it => it.OrderItems)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
+        }
+
+        public async Task<IEnumerable<Order>> GetResentOrdersAsync(int page, int pageSize)
+        {
+            return await _context.Orders
+                .OrderByDescending(o => o.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

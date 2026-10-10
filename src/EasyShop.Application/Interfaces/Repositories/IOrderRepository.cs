@@ -10,7 +10,8 @@ namespace EasyShop.Application.Interfaces.Repositories
     {
         Task<Order?> GetOrderWithItemsAsync(int orderId); 
         Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId); 
-        Task<IEnumerable<Order>> GetOrdersByStatusAsync(OrderStatus status); 
+        Task<IEnumerable<Order>> GetOrdersByStatusAsync(OrderStatus status);
+        Task<IEnumerable<Order>> GetResentOrdersAsync(int page, int pageSize);
 
 
     }
